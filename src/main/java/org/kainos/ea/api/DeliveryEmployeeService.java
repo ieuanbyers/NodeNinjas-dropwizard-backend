@@ -86,4 +86,20 @@ public class DeliveryEmployeeService {
             throw new FailedToGetEmployeesException();
         }
     }
+
+    public void deleteEmployee(int id) throws EmployeeDoesNotExistException, FailedToDeleteEmployeeException {
+        try {
+            DeliveryEmployeeRequest employeeToDelete = deliveryEmployeeDao.getDeliveryEmployeeById(id);
+
+            if(employeeToDelete == null) {
+                throw new EmployeeDoesNotExistException();
+            }
+
+            deliveryEmployeeDao.deleteDeliveryEmployee(id);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+            throw new FailedToDeleteEmployeeException();
+        }
+    }
 }
