@@ -3,8 +3,10 @@ package org.kainos.ea.resources;
 import io.swagger.annotations.Api;
 import org.kainos.ea.api.AuthService;
 import org.kainos.ea.cli.Login;
-import org.kainos.ea.cli.OrderRequest;
-import org.kainos.ea.client.*;
+import org.kainos.ea.client.FailedToCreateLoginException;
+import org.kainos.ea.client.FailedToLoginException;
+import org.kainos.ea.client.FailedtoGenerateTokenException;
+import org.kainos.ea.client.InvalidLoginException;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

@@ -1,7 +1,9 @@
-package org.kainos.ea.db.OrderDao;
+package org.kainos.ea.db;
 
 import java.io.FileInputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnector {

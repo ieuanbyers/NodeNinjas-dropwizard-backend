@@ -1,8 +1,7 @@
-package org.kainos.ea.db.OrderDao;
+package org.kainos.ea.db;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.kainos.ea.cli.Login;
-import org.kainos.ea.cli.OrderRequest;
 
 import java.sql.*;
 import java.util.Date;
@@ -36,7 +35,7 @@ public class AuthDao {
 
         st.setString(1, username);
         st.setString(2, token);
-        st.setTimestamp(3,new java.sql.Timestamp(expiry.getTime()));
+        st.setTimestamp(3,new Timestamp(expiry.getTime()));
 
         st.executeUpdate();
 

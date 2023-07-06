@@ -2,7 +2,7 @@ package org.kainos.ea.api;
 
 import org.kainos.ea.cli.Login;
 import org.kainos.ea.client.*;
-import org.kainos.ea.db.OrderDao.AuthDao;
+import org.kainos.ea.db.AuthDao;
 
 import java.sql.SQLException;
 
