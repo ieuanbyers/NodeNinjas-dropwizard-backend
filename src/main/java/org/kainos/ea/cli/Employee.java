@@ -4,6 +4,32 @@ public  class Employee {
     private int employeeId;
     private String name;
     private double salary;
+    private String bankAccountNo;
+    private String natInsuranceNo;
+
+    public Employee(int employeeId, String name, double salary, String bankAccountNo, String natInsuranceNo) {
+        setEmployeeId(employeeId);
+        setName(name);
+        setSalary(salary);
+        setBankAccountNo(bankAccountNo);
+        setNatInsuranceNo(natInsuranceNo);
+    }
+
+    public String getBankAccountNo() {
+        return bankAccountNo;
+    }
+
+    public void setBankAccountNo(String bankAccountNo) {
+        this.bankAccountNo = bankAccountNo;
+    }
+
+    public String getNatInsuranceNo() {
+        return natInsuranceNo;
+    }
+
+    public void setNatInsuranceNo(String natInsuranceNo) {
+        this.natInsuranceNo = natInsuranceNo;
+    }
 
     public int getEmployeeId() {
         return employeeId;
@@ -29,9 +55,4 @@ public  class Employee {
         this.salary = salary;
     }
 
-    public Employee(int employeeId, String name, double salary) {
-        setEmployeeId(employeeId);
-        setName(name);
-        setSalary(salary);
-    }
 }
