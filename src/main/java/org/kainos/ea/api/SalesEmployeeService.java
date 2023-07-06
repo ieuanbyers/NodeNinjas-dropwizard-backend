@@ -2,10 +2,7 @@ package org.kainos.ea.api;
 
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
 import org.kainos.ea.cli.SalesRequest;
-import org.kainos.ea.client.FailedToCreateEmployeeException;
-import org.kainos.ea.client.FailedToGetSalesException;
-import org.kainos.ea.client.InvalidEmployeeException;
-import org.kainos.ea.client.SaleDoesNotExistException;
+import org.kainos.ea.client.*;
 import org.kainos.ea.db.DeliveryEmployeeDao;
 import org.kainos.ea.db.SalesEmployeeDao;
 
@@ -61,6 +58,41 @@ public class SalesEmployeeService {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             throw new FailedToGetSalesException();
+        }
+    }
+
+    public void updateSales(int id, SalesRequest orderRequest) throws InvalidEmployeeException, SaleDoesNotExistException, FailedToUpdateSaleException, SQLException {
+        try {
+          //  String validation = orderValidator.isValidOrder(orderRequest);
+           // if (validation != null) {
+                SalesRequest OrderToUp = salesEmployeeDao.getSalesById(id);
+                if (OrderToUp == null) {
+                    throw new SaleDoesNotExistException();
+                }
+                salesEmployeeDao.updateSales(id, orderRequest);
+
+            }
+
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new FailedToUpdateSaleException();
+        }
+    }
+    public void deleteSales(int id) throws SaleDoesNotExistException, FailedToDeleteSaleException
+    {
+        try
+        {
+            SalesRequest saleToDelete = salesEmployeeDao.getSalesById(id);
+            if(saleToDelete == null)
+            {
+                throw new SaleDoesNotExistException();
+            }
+            else {
+                salesEmployeeDao.DeleteSales(id);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new FailedToDeleteSaleException();
         }
     }
 }
