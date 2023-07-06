@@ -16,7 +16,7 @@ public class DeliveryEmployeeDao {
 
         String selectStatement = "SELECT Name, Salary, BankAccountNo, NatInsuranceNo FROM Delivery WHERE DeliveryEmployeeID = " + id;
 
-        ResultSet rs = st.executeQuery();
+        ResultSet rs = st.executeQuery(selectStatement);
 
         while (rs.next()){
             return new DeliveryEmployeeRequest(
