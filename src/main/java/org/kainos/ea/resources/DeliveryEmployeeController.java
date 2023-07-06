@@ -3,6 +3,7 @@ package org.kainos.ea.resources;
 import io.swagger.annotations.Api;
 import org.kainos.ea.api.DeliveryEmployeeService;
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
+import org.kainos.ea.cli.DeliveryEmployeeUpdateRequest;
 import org.kainos.ea.cli.EmployeeRequest;
 import org.kainos.ea.client.*;
 
@@ -65,7 +66,7 @@ public class DeliveryEmployeeController {
     @Path("/delivery-employee/{id}")
     @Produces(MediaType.APPLICATION_JSON)
 
-    public Response updateDeliveryEmployees(@PathParam("id") int id, DeliveryEmployeeRequest employee){
+    public Response updateDeliveryEmployees(@PathParam("id") int id, DeliveryEmployeeUpdateRequest employee){
 
         try{
             deliveryEmployeeService.updateDeliveryEmployee(id, employee);
