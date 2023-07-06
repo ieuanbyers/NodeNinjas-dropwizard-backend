@@ -3,11 +3,31 @@ package org.kainos.ea.db;
 import org.kainos.ea.cli.DeliveryEmployee;
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 public class DeliveryEmployeeDao {
 
     private DatabaseConnector databaseConnector = new DatabaseConnector();
+
+    public DeliveryEmployeeRequest getDeliveryEmployeeById(int id) throws SQLException{
+        Connection c = databaseConnector.getConnection();
+        Statement st = c.createStatement();
+
+        String selectStatement = "SELECT Name, Salary, BankAccountNo, NatInsuranceNo FROM Delivery WHERE DeliveryEmployeeID = " + id;
+
+        ResultSet rs = st.executeQuery(selectStatement);
+
+        while (rs.next()){
+            return new DeliveryEmployeeRequest(
+                    rs.getString("Name"),
+                    rs.getDouble("Salary"),
+                    rs.getString("BankAccountNo"),
+                    rs.getString("NatInsuranceNo")
+            );
+        }
+        return null;
+    }
 
     public int createDeliveryEmployee(DeliveryEmployeeRequest employee) throws SQLException {
         Connection c = databaseConnector.getConnection();
@@ -31,4 +51,6 @@ public class DeliveryEmployeeDao {
 
         return -1;
     }
+
+
 }
