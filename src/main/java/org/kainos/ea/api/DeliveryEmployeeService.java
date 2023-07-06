@@ -52,9 +52,9 @@ public class DeliveryEmployeeService {
         }
     }
 
-    public void updateDeliveryEmployee(int id, DeliveryEmployeeRequest employee) throws InvalidEmployeeException, EmployeeDoesNotExistException, FailedToUpdateEmployeeException {
+    public void updateDeliveryEmployee(int id, DeliveryEmployeeUpdateRequest employee) throws InvalidEmployeeException, EmployeeDoesNotExistException, FailedToUpdateEmployeeException {
         try{
-            String validation = deliveryEmployeeValidator.validateDeliveryEmployee(employee);
+            String validation = deliveryEmployeeValidator.validateDeliveryEmployeeUpdate(employee);
             if (validation != null){
                 throw new InvalidEmployeeException(validation);
             }
