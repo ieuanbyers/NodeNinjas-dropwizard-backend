@@ -74,16 +74,17 @@ public class DeliveryEmployeeDao {
 
     }
 
-    public List<DeliveryEmployeeRequest> getAllEmployees() throws SQLException {
+    public List<DeliveryEmployee> getAllEmployees() throws SQLException {
         Connection c = getConnection();
         Statement st = c.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo FROM Delivery;");
+        ResultSet rs = st.executeQuery("SELECT DeliveryEmployeeID, Name, Salary, BankAccountNo, NatInsuranceNo FROM Delivery;");
 
-        List<DeliveryEmployeeRequest> employeeList = new ArrayList<>();
+        List<DeliveryEmployee> employeeList = new ArrayList<>();
 
         while (rs.next()) {
-            DeliveryEmployeeRequest employee = new DeliveryEmployeeRequest(
+            DeliveryEmployee employee = new DeliveryEmployee(
+                    rs.getInt("DeliveryEmployeeID"),
                     rs.getString("Name"),
                     rs.getFloat("Salary"),
                     rs.getString("BankAccountNo"),
