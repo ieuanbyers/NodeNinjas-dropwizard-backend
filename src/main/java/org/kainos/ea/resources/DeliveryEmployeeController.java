@@ -3,12 +3,12 @@ package org.kainos.ea.resources;
 import io.swagger.annotations.Api;
 import org.kainos.ea.api.DeliveryEmployeeService;
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
+import org.kainos.ea.client.EmployeeDoesNotExistException;
 import org.kainos.ea.client.FailedToCreateEmployeeException;
+import org.kainos.ea.client.FailedToGetEmployeeException;
 import org.kainos.ea.client.InvalidEmployeeException;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,6 +33,21 @@ public class DeliveryEmployeeController {
 
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    @GET
+    @Path("/delivery-employee/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDeliveryEmployeeByID(@PathParam("id") int id){
+
+        try {
+            return Response.ok(deliveryEmployeeService.getDeliveryEmployeeByID(id)).build();
+        } catch (FailedToGetEmployeeException e) {
+            System.err.println(e.getMessage());
+            return Response.serverError().build();
+        } catch (EmployeeDoesNotExistException e) {
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).build();        }
     }
 
 }
