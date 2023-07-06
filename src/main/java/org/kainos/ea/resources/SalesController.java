@@ -87,9 +87,9 @@ public class SalesController {
 
     }
     @DELETE
-    @Path("/orders/{id}")
+    @Path("/sales-employee/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteOrder(@PathParam("id") int id)
+    public Response deleteSales(@PathParam("id") int id)
     {
         try {
             salesEmployeeService.deleteSales(id);
