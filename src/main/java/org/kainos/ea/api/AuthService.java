@@ -1,11 +1,9 @@
 package org.kainos.ea.api;
 
 import org.kainos.ea.cli.Login;
-import org.kainos.ea.cli.OrderRequest;
 import org.kainos.ea.client.*;
 import org.kainos.ea.db.OrderDao.AuthDao;
 
-import javax.security.auth.login.FailedLoginException;
 import java.sql.SQLException;
 
 public class AuthService {
