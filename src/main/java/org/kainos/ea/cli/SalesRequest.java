@@ -15,7 +15,7 @@ public class SalesRequest extends EmployeeRequest  {
     }
 
     @JsonCreator
-    public SalesRequest(@JsonProperty("name") String name, @JsonProperty("salary") double salary, @JsonProperty("bankAccountNo") String bankAccountNo, @JsonProperty("natInsuranceNo") String natInsuranceNo, @JsonProperty("CommisionRate") double comRate) {
+    public SalesRequest(@JsonProperty("Name") String name, @JsonProperty("Salary") double salary, @JsonProperty("BankAccountNo") String bankAccountNo, @JsonProperty("NatInsuranceNo") String natInsuranceNo, @JsonProperty("CommisionRate") double comRate) {
         super(name, salary, bankAccountNo, natInsuranceNo);
         setComRate(comRate);
     }

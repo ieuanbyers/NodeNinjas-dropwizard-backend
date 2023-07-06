@@ -13,7 +13,7 @@ public class SalesEmployeeDao {
     public int createSalesEmployee(SalesRequest employee) throws SQLException {
         Connection c = databaseConnector.getConnection();
 
-        String insertStatement = "INSERT INTO Sales (Name, Salary, BankAccountNo, NatInsuranceNo, comRate) VALUES(?,?,?,?,?);";
+        String insertStatement = "INSERT INTO Sales (Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate) VALUES(?,?,?,?,?);";
 
         PreparedStatement st = c.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS);
 
@@ -37,7 +37,7 @@ public class SalesEmployeeDao {
     public List<SalesRequest> getAllSales() throws SQLException {{
             try (Connection c = databaseConnector.getConnection()) {
                 Statement st = c.createStatement();
-                ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo, comRate FROM Sales;");
+                ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales;");
                 List<SalesRequest> saleList = new ArrayList<>();
                 while (rs.next()) {
                     SalesRequest sale = new SalesRequest(
@@ -61,7 +61,7 @@ public class SalesEmployeeDao {
     public SalesRequest getSalesById(int id) throws SQLException {
         Connection c = databaseConnector.getConnection();
         Statement st = c.createStatement();
-        ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo, comRate FROM Sales where OrderId = " + id + ";");
+        ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales where SalesEmployeeId = " + id + ";");
 
         while (rs.next()) {
             return new SalesRequest(
@@ -77,7 +77,7 @@ public class SalesEmployeeDao {
 
     public void updateSales(int id, SalesRequest sales)   throws SQLException {
         Connection c = DatabaseConnector.getConnection();
-        String updateStatement = "UPDATE Sales SET Name = ?, Salary, BankAccountNo = ?, NatInsuranceNo = ?, comRate = ? Where SalesId = ?";
+        String updateStatement = "UPDATE Sales SET Name = ?, Salary = ?, BankAccountNo = ?, NatInsuranceNo = ?, CommissionRate = ? Where SalesEmployeeId = ?";
         PreparedStatement st = c.prepareStatement(updateStatement);
 
         st.setString(1, sales.getName());
@@ -92,7 +92,7 @@ public class SalesEmployeeDao {
     public  void DeleteSales(int id) throws SQLException
     {
         Connection c = DatabaseConnector.getConnection();
-        String deleteStatement = "DELETE FROM Sales Where SalesId = ?";
+        String deleteStatement = "DELETE FROM Sales Where SalesEmployeeId = ?";
         PreparedStatement st = c.prepareStatement(deleteStatement);
         st.setInt(1,id);
         st.executeUpdate();
