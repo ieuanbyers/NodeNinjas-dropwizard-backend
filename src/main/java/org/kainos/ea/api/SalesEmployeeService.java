@@ -1,6 +1,7 @@
 package org.kainos.ea.api;
 
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
+import org.kainos.ea.cli.SalesEmployee;
 import org.kainos.ea.cli.SalesRequest;
 import org.kainos.ea.client.*;
 import org.kainos.ea.core.DeliveryEmployeeValidator;
@@ -39,8 +40,8 @@ public class SalesEmployeeService {
     }
 
 
-    public List<SalesRequest> getAllSales() throws FailedToGetSalesException {
-        List<SalesRequest> saleList = null;
+    public List<SalesEmployee> getAllSales() throws FailedToGetSalesException {
+        List<SalesEmployee> saleList = null;
         try {
             saleList = salesEmployeeDao.getAllSales();
             return saleList;
