@@ -57,4 +57,21 @@ public class SalesEmployeeDao {
             }
         }
     }
+
+    public SalesRequest getSalesById(int id) throws SQLException {
+        Connection c = databaseConnector.getConnection();
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery("SELECT `Order`.OrderId, `Order`.CustomerId, OrderDate, Customer.Name as 'ClientName' FROM `Order` inner join Customer ON `Order`.CustomerId = Customer.CustomerId where OrderId = " + id + ";");
+
+        while (rs.next()) {
+            return new SalesRequest(
+                    rs.getString("Name"),
+                    rs.getDouble("Salary"),
+                    rs.getString("BankAccountNo"),
+                    rs.getString("NatInsuranceNo"),
+                    rs.getDouble("ComRate")
+            );
+        }
+        return null;
+    }
 }

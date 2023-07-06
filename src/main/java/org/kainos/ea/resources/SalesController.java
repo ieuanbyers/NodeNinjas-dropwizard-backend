@@ -9,11 +9,9 @@ import org.kainos.ea.cli.SalesRequest;
 import org.kainos.ea.client.FailedToCreateEmployeeException;
 import org.kainos.ea.client.FailedToGetSalesException;
 import org.kainos.ea.client.InvalidEmployeeException;
+import org.kainos.ea.client.SaleDoesNotExistException;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,6 +32,23 @@ public class SalesController {
         } catch (FailedToGetSalesException e) {
             System.err.println(e.getMessage());
             return Response.serverError().build();
+        }
+    }
+
+    @GET
+    @Path("/sales-employee/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSalesById(@PathParam("id") int id)
+    {
+        try {
+            try {
+                return Response.ok(salesEmployeeService.getSalesById(id)).build();
+            } catch (SaleDoesNotExistException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (FailedToGetSalesException e) {
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
     @POST
