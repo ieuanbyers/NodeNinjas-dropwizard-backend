@@ -65,10 +65,9 @@ public class SalesEmployeeService {
     }
 
     public void updateSales(int id, SalesRequest orderRequest) throws InvalidEmployeeException, SaleDoesNotExistException, FailedToUpdateSaleException, SQLException {
-        try {
-            try{
+            try {
                 String validation = salesEmployeeValidator.validateSalesEmployee(orderRequest);
-                if (validation != null){
+                if (validation != null) {
                     throw new InvalidEmployeeException(validation);
                 }
                 SalesRequest OrderToUp = salesEmployeeDao.getSalesById(id);
@@ -77,13 +76,11 @@ public class SalesEmployeeService {
                 }
                 salesEmployeeDao.updateSales(id, orderRequest);
 
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+                throw new FailedToUpdateSaleException();
             }
-
-        catch (SQLException e) {
-            System.err.println(e.getMessage());
-            throw new FailedToUpdateSaleException();
-        }
-    }}
+    }
     public void deleteSales(int id) throws SaleDoesNotExistException, FailedToDeleteSaleException
     {
         try
