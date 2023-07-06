@@ -1,6 +1,7 @@
 package org.kainos.ea.db;
 
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
+import org.kainos.ea.cli.SalesEmployee;
 import org.kainos.ea.cli.SalesRequest;
 
 import java.sql.*;
@@ -34,18 +35,19 @@ public class SalesEmployeeDao {
         return -1;
     }
 
-    public List<SalesRequest> getAllSales() throws SQLException {{
+    public List<SalesEmployee> getAllSales() throws SQLException {{
             try (Connection c = databaseConnector.getConnection()) {
                 Statement st = c.createStatement();
-                ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales;");
-                List<SalesRequest> saleList = new ArrayList<>();
+                ResultSet rs = st.executeQuery("SELECT SalaryEmployeeId, Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales;");
+                List<SalesEmployee> saleList = new ArrayList<>();
                 while (rs.next()) {
-                    SalesRequest sale = new SalesRequest(
+                    SalesEmployee sale = new SalesEmployee(
+                            rs.getInt("SalaryEmployeeId"),
                             rs.getString("Name"),
                             rs.getDouble("Salary"),
                             rs.getString("BankAccountNo"),
                             rs.getString("NatInsuranceNo"),
-                            rs.getDouble("ComRate")
+                            rs.getFloat("CommissionRate")
                     );
                     saleList.add(sale);
                 }
