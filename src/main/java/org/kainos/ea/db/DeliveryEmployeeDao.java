@@ -6,6 +6,10 @@ import org.kainos.ea.cli.EmployeeRequest;
 
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.kainos.ea.db.DatabaseConnector.getConnection;
 
 public class DeliveryEmployeeDao {
 
@@ -68,6 +72,27 @@ public class DeliveryEmployeeDao {
 
         st.executeUpdate();
 
+    }
+
+    public List<DeliveryEmployeeRequest> getAllEmployees() throws SQLException {
+        Connection c = getConnection();
+        Statement st = c.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT Name, Salary, BankAccountNo, NatInsuranceNo FROM Delivery;");
+
+        List<DeliveryEmployeeRequest> employeeList = new ArrayList<>();
+
+        while (rs.next()) {
+            DeliveryEmployeeRequest employee = new DeliveryEmployeeRequest(
+                    rs.getString("Name"),
+                    rs.getFloat("Salary"),
+                    rs.getString("BankAccountNo"),
+                    rs.getString("NatInsuranceNo")
+            );
+
+            employeeList.add(employee);
+        }
+        return employeeList;
     }
 
 
