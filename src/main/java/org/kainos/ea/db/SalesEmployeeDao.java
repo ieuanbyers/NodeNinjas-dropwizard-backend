@@ -74,4 +74,27 @@ public class SalesEmployeeDao {
         }
         return null;
     }
+
+    public void updateSales(int id, SalesRequest sales)   throws SQLException {
+        Connection c = DatabaseConnector.getConnection();
+        String updateStatement = "UPDATE Sales SET Name = ?, Salary, BankAccountNo = ?, NatInsuranceNo = ?, comRate = ? Where SalesId = ?";
+        PreparedStatement st = c.prepareStatement(updateStatement);
+
+        st.setString(1, sales.getName());
+        st.setDouble(2, sales.getSalary());
+        st.setString(3, sales.getBankAccountNo());
+        st.setString(4, sales.getNatInsuranceNo());
+        st.setDouble(5, sales.getComRate());
+        st.setInt(6, id);
+
+        st.executeUpdate();
+    }
+    public  void DeleteSales(int id) throws SQLException
+    {
+        Connection c = DatabaseConnector.getConnection();
+        String deleteStatement = "DELETE FROM Sales Where SalesId = ?";
+        PreparedStatement st = c.prepareStatement(deleteStatement);
+        st.setInt(1,id);
+        st.executeUpdate();
+    }
 }
