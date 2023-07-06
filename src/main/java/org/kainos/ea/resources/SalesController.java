@@ -7,8 +7,10 @@ import org.kainos.ea.api.SalesEmployeeService;
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
 import org.kainos.ea.cli.SalesRequest;
 import org.kainos.ea.client.FailedToCreateEmployeeException;
+import org.kainos.ea.client.FailedToGetSalesException;
 import org.kainos.ea.client.InvalidEmployeeException;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,6 +23,19 @@ public class SalesController {
 
     private SalesEmployeeService salesEmployeeService = new SalesEmployeeService();
 
+
+    @GET
+    @Path("/sales-employee")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSales()
+    {
+        try {
+            return Response.ok(salesEmployeeService.getAllSales()).build();
+        } catch (FailedToGetSalesException e) {
+            System.err.println(e.getMessage());
+            return Response.serverError().build();
+        }
+    }
     @POST
     @Path("/sales-employee")
     @Produces(MediaType.APPLICATION_JSON)
