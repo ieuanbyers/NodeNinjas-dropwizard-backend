@@ -3,6 +3,8 @@ package org.kainos.ea.api;
 import org.kainos.ea.cli.DeliveryEmployeeRequest;
 import org.kainos.ea.cli.SalesRequest;
 import org.kainos.ea.client.*;
+import org.kainos.ea.core.DeliveryEmployeeValidator;
+import org.kainos.ea.core.SalesEmployeeValidator;
 import org.kainos.ea.db.DeliveryEmployeeDao;
 import org.kainos.ea.db.SalesEmployeeDao;
 
@@ -12,13 +14,14 @@ import java.util.List;
 public class SalesEmployeeService {
     private SalesEmployeeDao salesEmployeeDao = new SalesEmployeeDao();
 
+    private SalesEmployeeValidator salesEmployeeValidator = new SalesEmployeeValidator();
     public int createSalesEmployee(SalesRequest sale) throws InvalidEmployeeException, FailedToCreateEmployeeException {
         try {
-            //  String validation = salesEmployeeValidator.validateDeliveryEmployee(employee);
+              String validation = salesEmployeeValidator.validateSalesEmployee(sale);
 
-//            if (validation != null){
-            //              throw new InvalidEmployeeException(validation);
-            //        }
+          if (validation != null){
+                          throw new InvalidEmployeeException(validation);
+                    }
 
             int id = salesEmployeeDao.createSalesEmployee(sale);
 
@@ -63,8 +66,11 @@ public class SalesEmployeeService {
 
     public void updateSales(int id, SalesRequest orderRequest) throws InvalidEmployeeException, SaleDoesNotExistException, FailedToUpdateSaleException, SQLException {
         try {
-          //  String validation = orderValidator.isValidOrder(orderRequest);
-           // if (validation != null) {
+            try{
+                String validation = salesEmployeeValidator.validateSalesEmployee(orderRequest);
+                if (validation != null){
+                    throw new InvalidEmployeeException(validation);
+                }
                 SalesRequest OrderToUp = salesEmployeeDao.getSalesById(id);
                 if (OrderToUp == null) {
                     throw new SaleDoesNotExistException();
@@ -77,7 +83,7 @@ public class SalesEmployeeService {
             System.err.println(e.getMessage());
             throw new FailedToUpdateSaleException();
         }
-    }
+    }}
     public void deleteSales(int id) throws SaleDoesNotExistException, FailedToDeleteSaleException
     {
         try
@@ -87,9 +93,8 @@ public class SalesEmployeeService {
             {
                 throw new SaleDoesNotExistException();
             }
-            else {
                 salesEmployeeDao.DeleteSales(id);
-            }
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             throw new FailedToDeleteSaleException();
