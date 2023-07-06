@@ -38,11 +38,11 @@ public class SalesEmployeeDao {
     public List<SalesEmployee> getAllSales() throws SQLException {{
             try (Connection c = databaseConnector.getConnection()) {
                 Statement st = c.createStatement();
-                ResultSet rs = st.executeQuery("SELECT SalaryEmployeeId, Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales;");
+                ResultSet rs = st.executeQuery("SELECT SalesEmployeeId, Name, Salary, BankAccountNo, NatInsuranceNo, CommissionRate FROM Sales;");
                 List<SalesEmployee> saleList = new ArrayList<>();
                 while (rs.next()) {
                     SalesEmployee sale = new SalesEmployee(
-                            rs.getInt("SalaryEmployeeId"),
+                            rs.getInt("SalesEmployeeId"),
                             rs.getString("Name"),
                             rs.getDouble("Salary"),
                             rs.getString("BankAccountNo"),
