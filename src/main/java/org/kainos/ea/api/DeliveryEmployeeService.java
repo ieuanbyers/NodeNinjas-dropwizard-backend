@@ -9,6 +9,8 @@ import org.kainos.ea.core.DeliveryEmployeeValidator;
 import org.kainos.ea.db.DeliveryEmployeeDao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeliveryEmployeeService {
 
@@ -71,6 +73,17 @@ public class DeliveryEmployeeService {
             System.err.println(e.getMessage());
 
             throw new FailedToUpdateEmployeeException();
+        }
+    }
+
+    public List<DeliveryEmployeeRequest> getAllDeliveryEmployees() throws FailedToGetEmployeesException {
+        try {
+            return deliveryEmployeeDao.getAllEmployees();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+            throw new FailedToGetEmployeesException();
         }
     }
 }
