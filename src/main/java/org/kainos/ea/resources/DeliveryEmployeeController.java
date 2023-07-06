@@ -17,6 +17,19 @@ public class DeliveryEmployeeController {
     private DeliveryEmployeeService deliveryEmployeeService = new DeliveryEmployeeService();
 
     @GET
+    @Path("/delivery-employee")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSales()
+    {
+        try {
+            return Response.ok(deliveryEmployeeService.getAllDeliveryEmployees()).build();
+        } catch (FailedToGetEmployeesException e) {
+            System.err.println(e.getMessage());
+            return Response.serverError().build();
+        }
+    }
+
+    @GET
     @Path("/delivery-employee/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDeliveryEmployeeByID(@PathParam("id") int id){

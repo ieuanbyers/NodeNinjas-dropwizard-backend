@@ -9,7 +9,7 @@ public class DeliveryEmployeeValidator {
             return "Employee name must be less than 50 characters";
         }
 
-        if (employee.getSalary() < 10) {
+        if (employee.getSalary() < 10000) {
             return "Employee salary must be greater than £10";
         }
 
